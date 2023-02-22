@@ -11,6 +11,7 @@ import NavBar from './components/NavBar';
 import About from './pages/About/About';
 import CreatePost from './pages/CreatePost/CreatePost';
 import Dashboard from './pages/Dashboard/Dashboard';
+import EditPost from './pages/EditPost/EditPost';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Post from './pages/Post/Post';
@@ -45,6 +46,7 @@ function App() {
               <Route path="/posts/:id" element={<Post />} />
               <Route path="/register" element={!users ? <Register /> : <Navigate to="/" />} />
               <Route path="/login" element={!users ? <Login /> : <Navigate to="/" />} />
+              <Route path="/posts/edit/:id" element={users ? <EditPost /> : <Navigate to="/login" />} />
               <Route path="/posts/create" element={users ? <CreatePost /> : <Navigate to="/login" />} />
               <Route path="/dashboard" element={users ? <Dashboard /> : <Navigate to="/login" />} />
             </Routes>
