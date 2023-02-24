@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
 import { useFetchDocument } from '../../hooks/useFetchDocument';
-import { useInsertDocument } from '../../hooks/useInsertDocument';
+
+import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 import styles from './EditPost.module.css';
 
 function EditPost() {
@@ -25,7 +26,7 @@ function EditPost() {
       setTags(textTags);
     }
   }, [post]);
-  const { insertDocument, response } = useInsertDocument('posts');
+  const { updateDocument, response } = useUpdateDocument('posts');
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,17 +49,18 @@ function EditPost() {
 
     if (formError) return;
 
-    insertDocument({
+    const data = {
       title,
       image,
       body,
       tagsArray,
       uid: users.uid,
       createdBy: users.displayName,
-    });
+    };
+    updateDocument(id, data);
 
     // redirect to home page
-    navigate('/');
+    navigate('/dashBoard');
   };
 
   return (
